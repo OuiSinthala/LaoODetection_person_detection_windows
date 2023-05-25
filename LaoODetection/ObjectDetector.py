@@ -53,14 +53,17 @@ class ObjectDetector:
                 # Get the center and ID of the tracked object and draw bounding box and center on the object
                 center_x, center_y, object_id = counter.tracking(tracked_object)
                 
+                
                 # If this is a new object, add it to the list of total detected objects
                 if object_id not in total_detected_object:
                     total_detected_object.append(object_id)
                     print("Hello") 
-                    # Threading
-                    sound_thread = threading.Thread(target=play_sound)
-                    sound_thread.start()
-
+                    if len(total_detected_object) <= 1:
+                        # Threading
+                        sound_thread = threading.Thread(target=play_sound)
+                        sound_thread.start()
+                    
+                    
                     
                 # If the object is within the frame, add its ID to the list of active object IDs
                 if 0 <= center_x <= captured_frame.shape[1] and 0 <= center_y <= captured_frame.shape[0]:
